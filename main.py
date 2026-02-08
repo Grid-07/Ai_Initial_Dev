@@ -4,10 +4,9 @@ from transformers import pipeline
 
 app = FastAPI()
 
-summarizer = pipeline(
-     "summarization",
-     model = "sshleifer/distilbart-cnn-12-6"
-)
+summarizer = None
+
+
 
 
 class summarizeRequest(BaseModel):
@@ -21,12 +20,23 @@ def health_check():
         "message": "AI Text APi alive"
     }
 
+def load_model():
+    global summarizer
+    if summarizer is None:
+        summarizer = pipeline(
+            "summarization",
+            model="sshleifer/distilbart-cnn-12-6"
+        )
+
 @app.post('/summarize')
 def summarize_text(request: summarizeRequest):
         if not request.text.strip():
              return{
                   "Error":"Text cannot be empty"
              }
+        
+        load_model()
+
         summary = summarizer(
              request.text,
              max_length = 120,
