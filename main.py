@@ -25,7 +25,7 @@ def load_model():
     if summarizer is None:
         summarizer = pipeline(
             "summarization",
-            model="sshleifer/tiny-t5"
+            model="google-t5/t5-small"
         )
 
 @app.post('/summarize')
