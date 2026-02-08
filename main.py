@@ -17,7 +17,7 @@ class summarizeRequest(BaseModel):
 def health_check():
     return{
         "status": "running",
-        "message": "AI Text APi alive"
+        "message": "AI Text APi alive on google TIny"
     }
 
 def load_model():
