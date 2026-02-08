@@ -30,6 +30,9 @@ def load_model():
 
 @app.post('/summarize')
 def summarize_text(request: summarizeRequest):
+
+
+    try:
         if not request.text.strip():
              return{
                   "Error":"Text cannot be empty"
@@ -46,4 +49,10 @@ def summarize_text(request: summarizeRequest):
 
         return{
              "summary":summary[0]["summary_text"]
+        }
+    
+    except Exception as e:
+        return{
+            "error" : str(e),
+             "type":type(e).__name___
         }
