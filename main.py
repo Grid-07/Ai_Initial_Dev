@@ -25,7 +25,7 @@ def load_model():
     if summarizer is None:
         summarizer = pipeline(
             "summarization",
-            model="sshleifer/distilbart-cnn-12-6"
+            model="sshleifer/tiny-t5"
         )
 
 @app.post('/summarize')
@@ -39,9 +39,9 @@ def summarize_text(request: summarizeRequest):
 
         summary = summarizer(
              request.text,
-             max_length = 120,
-             min_length = 30,
-             do_sample = False
+               max_length=60,
+                min_length=20,
+                do_sample=False
         )
 
         return{
